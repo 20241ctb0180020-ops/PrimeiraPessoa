@@ -42,6 +42,7 @@ public class PlayerControllerVR : MonoBehaviour
         Vector2 moveVector = moveInput.ReadValue<Vector2>();
         currentMoveSpeed = runInput.IsPressed() ? RunningSpeed : WalkSpeed;
         HandleMovement(moveVector);
+        
     }
     private void HandleMovement(Vector2 moveVector)
     {
