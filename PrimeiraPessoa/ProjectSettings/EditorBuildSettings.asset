@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/PlayerPrimeiraPessoaVR.unity
     guid: 56b64daac14826947bb0998cfeaa049f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PlayerPrimeiraPessoaVR2.unity
     guid: ed1af197ccdebcf4aa5732a7d522dd0b
   m_configObjects:

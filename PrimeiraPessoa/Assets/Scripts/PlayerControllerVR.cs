@@ -9,9 +9,6 @@ public class PlayerControllerVR : MonoBehaviour
     [SerializeField] private float RunningSpeed = 9.0f;
     [SerializeField] private float JumpForce = 8.0f;
     [SerializeField] private float Gravity = 20.0f;
-    [SerializeField] private float LookSensitivity = 0.2f;
-    [SerializeField] private float LookAngleLimit = 90f;
-    private float lookAngle = 0.0f;
     private float currentMoveSpeed = 0.0f;
     private float verticalVelocity = 0f;
     private Camera mainCamera;
@@ -42,12 +39,25 @@ public class PlayerControllerVR : MonoBehaviour
         Vector2 moveVector = moveInput.ReadValue<Vector2>();
         currentMoveSpeed = runInput.IsPressed() ? RunningSpeed : WalkSpeed;
         HandleMovement(moveVector);
-        
+
     }
     private void HandleMovement(Vector2 moveVector)
     {
         Vector3 right = Vector3.ProjectOnPlane(mainCamera.transform.right, Vector3.up).normalized;
         Vector3 forward = Vector3.Cross(right, Vector3.up);
         Vector3 moveDirection = (forward * moveVector.y + right * moveVector.x) * currentMoveSpeed;
+        if (characterController.isGrounded) // verifica se o player está no chão
+        {
+            if (jumpInput.WasPressedThisFrame()) // verifica se o player pressionou o pulo
+                verticalVelocity = JumpForce;
+            else
+                verticalVelocity = -2f;
+        }
+        else
+        {
+            verticalVelocity -= Gravity * Time.deltaTime;
+        }
+        moveDirection.y = verticalVelocity;
+        characterController.Move(moveDirection * Time.deltaTime);
     }
 }
